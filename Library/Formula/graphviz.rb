@@ -45,6 +45,7 @@ class Graphviz < Formula
     depends_on "swig" => :build
     depends_on :python
     depends_on :java
+    depends_on "perl" => :recommended
   end
 
   fails_with :clang do
@@ -75,6 +76,7 @@ class Graphviz < Formula
       # http://www.graphviz.org/mantisbt/view.php?id=2486
       inreplace "configure", 'PYTHON_LIBS="-lpython$PYTHON_VERSION_SHORT"',
                              'PYTHON_LIBS="-L$PYTHON_PREFIX/lib -lpython$PYTHON_VERSION_SHORT"'
+      args << "--enable-perl=no" if build.without? "perl"
     end
 
     if build.head?
